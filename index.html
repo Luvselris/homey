@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- ป้องกัน iPhone / Safari แปลงเลขบัญชีเป็นเบอร์โทรสีน้ำเงิน -->
+  <meta name="format-detection" content="telephone=no">
   <title>Payment homey ♡</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +58,7 @@
       gap: 14px;
     }
 
-    /* 1. Header Card (แบนเนอร์ด้านบน + โปรไฟล์วงกลมคาบเกี่ยว) */
+    /* 1. Header Card */
     .header-card {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
@@ -186,11 +188,15 @@
       color: var(--homey-deep-pink);
     }
 
-    .acc-num-txt {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-brown);
-      letter-spacing: 0.5px;
+    /* ล็อกสีเลขบัญชีเป็นโทนน้ำตาลคาเฟ่ ไม่ให้ติดลิงก์สีน้ำเงิน */
+    .acc-num-txt,
+    .acc-num-txt a {
+      font-size: 16px !important;
+      font-weight: 700 !important;
+      color: var(--text-brown) !important;
+      letter-spacing: 0.5px !important;
+      text-decoration: none !important;
+      pointer-events: none; /* ป้องกันการกดโทรออก */
     }
 
     .copy-btn {
@@ -260,7 +266,7 @@
       font-weight: 500;
     }
 
-    /* 5. กล่องแยกข้อความซื้อขาย (ปรับโทนสีใหม่) */
+    /* 5. กล่องแยกข้อความซื้อขาย */
     .line-target-card {
       background: linear-gradient(135deg, #ffffff 40%, var(--homey-yellow));
       backdrop-filter: blur(14px);
@@ -283,7 +289,7 @@
       margin-left: 4px;
     }
 
-    /* 6. กล่องกดคอนแทคแจ้งสลิป (คุมโทนชมพูพาสเทล) */
+    /* 6. กล่องกดคอนแทคแจ้งสลิป */
     .contact-link-card {
       background: linear-gradient(135deg, #ffffff 30%, #fff2f6);
       backdrop-filter: blur(14px);
@@ -336,7 +342,7 @@
       box-shadow: 0 3px 10px rgba(242, 106, 141, 0.3);
     }
 
-    /* 7. Payment QR Code Card (คุมโทนใหม่ทั้งหมด) */
+    /* 7. Payment QR Code Card */
     .qr-card {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
@@ -530,8 +536,8 @@
 </head>
 <body>
 
-  <!-- เพลงพื้นหลัง -->
-  <audio id="bgMusic" loop autoplay playsinline src="https://files.catbox.moe/qhg9ub.mp3"></audio>
+  <!-- เพลงพื้นหลัง (เพิ่ม preload เพื่อให้พร้อมเล่นทันที) -->
+  <audio id="bgMusic" loop preload="auto" playsinline src="https://files.catbox.moe/qhg9ub.mp3"></audio>
 
   <div class="wrapper">
 
@@ -605,13 +611,13 @@
       </div>
     </div>
 
-    <!-- 4. กล่องโพสต์ที่ 1: ♡ pay preeyaporn (ไม่ลดขนาดรูป) -->
+    <!-- 4. กล่องโพสต์ที่ 1: ♡ pay preeyaporn -->
     <div class="post-box-card">
       <div class="post-title-tag">♡ pay preeyaporn</div>
       <img src="https://i.ibb.co/W49vJrnK/line-oa-chat-261003-010404.jpg" alt="pay preeyaporn" class="post-full-image">
     </div>
 
-    <!-- 5. กล่องโพสต์ที่ 2: ♡ pay kamonwan (ไม่ลดขนาดรูป) -->
+    <!-- 5. กล่องโพสต์ที่ 2: ♡ pay kamonwan -->
     <div class="post-box-card">
       <div class="post-title-tag">♡ pay kamonwan</div>
       <img src="https://i.ibb.co/cSp4mLwp/line-oa-chat-261003-010532.jpg" alt="pay kamonwan" class="post-full-image">
@@ -626,12 +632,12 @@
  𓈒  แล้วโน้ตสลิปนะคับ
     </div>
 
-    <!-- 7. กล่องแยกข้อความซื้อขาย (โทนสีใหม่) -->
+    <!-- 7. กล่องแยกข้อความซื้อขาย -->
     <div class="line-target-card">
       ซื้อขายกับไลน์ <span class="line-tag-bold">@463ouint</span>
     </div>
 
-    <!-- 8. ช่องให้กดคอนแทคแจ้งสลิป (โทนสีใหม่) -->
+    <!-- 8. ช่องให้กดคอนแทคแจ้งสลิป -->
     <a href="https://lin.ee/83ITyuY" target="_blank" class="contact-link-card">
       <div class="contact-text-wrap">
         <div class="contact-main-txt">โอนแล้วแจ้งสลิปที่ไลน์ @463ouint เท่านั้น ♡</div>
@@ -640,7 +646,7 @@
       <div class="contact-arrow-badge">➔</div>
     </a>
 
-    <!-- 9. Payment QR Code ตามยอดเงิน แยก 2 บัญชี (โทนสีใหม่) -->
+    <!-- 9. Payment QR Code ตามยอดเงิน แยก 2 บัญชี -->
     <div class="qr-card">
       <div class="qr-main-title">💳 สร้าง Payment QR Code ♡</div>
 
@@ -697,7 +703,7 @@
     const musicIcon = document.getElementById('musicIcon');
     const musicText = document.getElementById('musicText');
 
-    function startMusicOnLoad() {
+    function playAudioSafe() {
       music.play().then(() => {
         musicIcon.textContent = "❚❚";
         musicText.textContent = "pause music";
@@ -709,9 +715,7 @@
 
     function toggleMusic() {
       if (music.paused) {
-        music.play();
-        musicIcon.textContent = "❚❚";
-        musicText.textContent = "pause music";
+        playAudioSafe();
       } else {
         music.pause();
         musicIcon.textContent = "▶";
@@ -719,13 +723,19 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      startMusicOnLoad();
-      document.body.addEventListener('click', () => {
-        if (music.paused && musicText.textContent === "play music !") {
-          toggleMusic();
-        }
-      }, { once: true });
+    // ปลดล็อกระบบเสียงทันทีเมื่อเริ่มแตะหน้าจอ (รองรับ iOS Safari 100%)
+    function unlockAudio() {
+      if (music.paused && musicText.textContent === "play music !") {
+        playAudioSafe();
+      }
+      document.removeEventListener('touchstart', unlockAudio);
+      document.removeEventListener('click', unlockAudio);
+    }
+
+    document.addEventListener('touchstart', unlockAudio, { passive: true });
+    document.addEventListener('click', unlockAudio, { passive: true });
+    window.addEventListener('load', () => {
+      playAudioSafe();
     });
 
     // 2. ฟังก์ชันคัดลอกเฉพาะตัวเลข
