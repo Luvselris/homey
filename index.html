@@ -13,19 +13,19 @@
 
   <style>
     :root {
-      /* โทนสี Homey House Pastel (ชมพูพีช, เหลืองเนย, ฟ้าคัสตาร์ด, น้ำตาลคาเฟ่) */
+      /* โทนสี Homey House Pastel */
       --homey-pink: #ffb8d2;
+      --homey-soft-pink: #fff0f5;
       --homey-deep-pink: #f26a8d;
-      --homey-yellow: #fff3c4;
-      --homey-butter: #ffe082;
-      --homey-blue: #b8e2f8;
-      --homey-cream: #fffaf5;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --border-pink: #ffd0df;
+      --homey-yellow: #fff4d1;
+      --homey-butter: #ffeaa7;
+      --homey-blue: #c2e9fb;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --border-pink: #ffd5e3;
       --border-yellow: #fae4ad;
       --text-brown: #634832;
       --text-soft: #8f7663;
-      --glow-shadow: 0 10px 28px rgba(255, 184, 210, 0.32);
+      --glow-shadow: 0 10px 28px rgba(255, 184, 210, 0.28);
     }
 
     * {
@@ -43,22 +43,7 @@
       justify-content: center;
       padding: 24px 14px 70px;
       position: relative;
-      background: #fff8fa;
-    }
-
-    /* ภาพพื้นหลังใหญ่ด้านหลังทั้งหน้าเว็บ */
-    .bg-fixed-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-image: url('https://i.ibb.co/7x7jDhHF/line-oa-chat-261003-010110.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: 0;
-      filter: blur(1.5px) brightness(0.98);
+      background: radial-gradient(circle at top, #fff3f6 0%, #fffbf2 60%, #fff8fa 100%);
     }
 
     .wrapper {
@@ -71,25 +56,40 @@
       gap: 14px;
     }
 
-    /* 1. Header Profile Card */
+    /* 1. Header Card (แบนเนอร์ด้านบน + โปรไฟล์วงกลมคาบเกี่ยว) */
     .header-card {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
       border-radius: 30px;
-      padding: 22px 16px 20px;
+      padding: 12px 12px 20px;
       text-align: center;
       border: 2.5px solid #ffffff;
       box-shadow: var(--glow-shadow);
     }
 
+    .banner-container {
+      width: 100%;
+      height: 145px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff0f5;
+    }
+
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .profile-wrap {
       display: inline-block;
       position: relative;
+      margin-top: -48px;
     }
 
     .profile-img {
-      width: 102px;
-      height: 102px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid #ffffff;
@@ -181,9 +181,9 @@
     }
 
     .bank-name-label {
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 600;
-      color: var(--text-soft);
+      color: var(--homey-deep-pink);
     }
 
     .acc-num-txt {
@@ -215,7 +215,7 @@
       background: #ffdce6;
     }
 
-    /* 3. Post Cards (ไม่ลดขนาดรูป แสดงรูปขนาดเต็ม) */
+    /* 3. Post Cards */
     .post-box-card {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
@@ -260,32 +260,37 @@
       font-weight: 500;
     }
 
-    /* 5. กล่องแยกข้อความซื้อขาย */
+    /* 5. กล่องแยกข้อความซื้อขาย (ปรับโทนสีใหม่) */
     .line-target-card {
-      background: linear-gradient(135deg, #ffffff, var(--homey-yellow));
+      background: linear-gradient(135deg, #ffffff 40%, var(--homey-yellow));
       backdrop-filter: blur(14px);
       border-radius: 22px;
-      padding: 14px 16px;
+      padding: 13px 16px;
       border: 2px solid #ffffff;
       box-shadow: var(--glow-shadow);
       text-align: center;
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--text-brown);
     }
 
     .line-tag-bold {
-      color: #06c755;
+      color: var(--homey-deep-pink);
+      background: #fff;
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border-pink);
+      margin-left: 4px;
     }
 
-    /* 6. กล่องกดคอนแทคแจ้งสลิป */
+    /* 6. กล่องกดคอนแทคแจ้งสลิป (คุมโทนชมพูพาสเทล) */
     .contact-link-card {
-      background: linear-gradient(135deg, #ffffff 40%, #f1faee);
+      background: linear-gradient(135deg, #ffffff 30%, #fff2f6);
       backdrop-filter: blur(14px);
       border-radius: 24px;
-      padding: 16px;
-      border: 2px solid #06c755;
-      box-shadow: 0 8px 22px rgba(6, 199, 85, 0.2);
+      padding: 15px 18px;
+      border: 2px solid var(--border-pink);
+      box-shadow: var(--glow-shadow);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -308,7 +313,7 @@
     .contact-main-txt {
       font-size: 14px;
       font-weight: 700;
-      color: #06c755;
+      color: var(--homey-deep-pink);
       line-height: 1.4;
     }
 
@@ -318,7 +323,7 @@
     }
 
     .contact-arrow-badge {
-      background: #06c755;
+      background: linear-gradient(135deg, var(--homey-pink), var(--homey-deep-pink));
       color: #ffffff;
       width: 36px;
       height: 36px;
@@ -328,10 +333,10 @@
       justify-content: center;
       font-size: 18px;
       font-weight: 700;
-      box-shadow: 0 3px 10px rgba(6, 199, 85, 0.3);
+      box-shadow: 0 3px 10px rgba(242, 106, 141, 0.3);
     }
 
-    /* 7. Payment QR Code 2 บัญชี */
+    /* 7. Payment QR Code Card (คุมโทนใหม่ทั้งหมด) */
     .qr-card {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
@@ -346,19 +351,22 @@
       font-size: 16px;
       font-weight: 700;
       color: var(--homey-deep-pink);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    /* แท็บสลับบัญชี QR Code */
     .qr-tab-nav {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      background: #fff0f5;
+      background: #fff5f8;
       padding: 5px;
       border-radius: 20px;
       margin-bottom: 16px;
-      border: 1px solid var(--border-pink);
+      border: 1.5px solid var(--border-pink);
     }
 
     .qr-tab-btn {
@@ -377,7 +385,7 @@
       background: #ffffff;
       color: var(--homey-deep-pink);
       font-weight: 700;
-      box-shadow: 0 4px 10px rgba(242, 106, 141, 0.25);
+      box-shadow: 0 4px 10px rgba(242, 106, 141, 0.2);
     }
 
     .amount-display-box {
@@ -418,14 +426,14 @@
 
     .quick-btn {
       background: #ffffff;
-      border: 1.5px solid #ffe3ec;
+      border: 1.5px solid #ffe6ef;
       color: var(--text-brown);
       padding: 7px 0;
       border-radius: 14px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(255, 184, 210, 0.2);
+      box-shadow: 0 2px 6px rgba(255, 184, 210, 0.18);
       transition: all 0.15s ease;
     }
 
@@ -443,7 +451,7 @@
     }
 
     .btn-clear {
-      background: #fff5f8;
+      background: #fff8fb;
       border: 1.5px solid #ffd4e2;
       color: var(--text-soft);
       padding: 7px 0;
@@ -455,14 +463,14 @@
 
     .qr-container {
       background: #ffffff;
-      border: 2px solid #fff0f5;
+      border: 2px solid #fff2f6;
       border-radius: 22px;
       padding: 16px;
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 18px rgba(255, 184, 210, 0.35);
+      box-shadow: 0 6px 18px rgba(255, 184, 210, 0.32);
       margin-bottom: 12px;
     }
 
@@ -522,16 +530,16 @@
 </head>
 <body>
 
-  <!-- เลเยอร์ภาพพื้นหลังเต็มจอ -->
-  <div class="bg-fixed-layer"></div>
-
   <!-- เพลงพื้นหลัง -->
   <audio id="bgMusic" loop autoplay playsinline src="https://files.catbox.moe/qhg9ub.mp3"></audio>
 
   <div class="wrapper">
 
-    <!-- 1. ส่วนหัวโปรไฟล์ -->
+    <!-- 1. ส่วนหัว: แบนเนอร์ด้านบน + โปรไฟล์วงกลมตรงกลาง -->
     <div class="header-card">
+      <div class="banner-container">
+        <img src="https://i.ibb.co/7x7jDhHF/line-oa-chat-261003-010110.jpg" alt="Banner" class="banner-img">
+      </div>
       <div class="profile-wrap">
         <img src="https://i.ibb.co/zWPn1xXZ/line-oa-chat-261003-010148.jpg" alt="Profile" class="profile-img">
       </div>
@@ -550,7 +558,7 @@
 
       <div class="acc-row-box">
         <div class="acc-info-left">
-          <div class="bank-name-label">🏛️ ธนาคารกรุงไทย</div>
+          <div class="bank-name-label">♡ ธนาคารกรุงไทย</div>
           <div class="acc-num-txt">125-0-73233-6</div>
         </div>
         <button type="button" class="copy-btn" onclick="copyText('1250732336', 'คัดลอกเลขบัญชีกรุงไทยแล้วค่ะ ♡')">
@@ -560,7 +568,7 @@
 
       <div class="acc-row-box">
         <div class="acc-info-left">
-          <div class="bank-name-label">📱 TrueMoney Wallet</div>
+          <div class="bank-name-label">♡ TrueMoney Wallet</div>
           <div class="acc-num-txt">063-070-6349</div>
         </div>
         <button type="button" class="copy-btn" onclick="copyText('0630706349', 'คัดลอกเลขวอเลตแล้วค่ะ ♡')">
@@ -578,7 +586,7 @@
 
       <div class="acc-row-box">
         <div class="acc-info-left">
-          <div class="bank-name-label">🏛️ ธนาคารกสิกรไทย</div>
+          <div class="bank-name-label">♡ ธนาคารกสิกรไทย</div>
           <div class="acc-num-txt">203-8-79430-5</div>
         </div>
         <button type="button" class="copy-btn" onclick="copyText('2038794305', 'คัดลอกเลขบัญชีกสิกรไทยแล้วค่ะ ♡')">
@@ -588,7 +596,7 @@
 
       <div class="acc-row-box">
         <div class="acc-info-left">
-          <div class="bank-name-label">📱 TrueMoney Wallet</div>
+          <div class="bank-name-label">♡ TrueMoney Wallet</div>
           <div class="acc-num-txt">063-070-6349</div>
         </div>
         <button type="button" class="copy-btn" onclick="copyText('0630706349', 'คัดลอกเลขวอเลตแล้วค่ะ ♡')">
@@ -618,23 +626,23 @@
  𓈒  แล้วโน้ตสลิปนะคับ
     </div>
 
-    <!-- 7. กล่องแยกข้อความซื้อขาย -->
+    <!-- 7. กล่องแยกข้อความซื้อขาย (โทนสีใหม่) -->
     <div class="line-target-card">
       ซื้อขายกับไลน์ <span class="line-tag-bold">@463ouint</span>
     </div>
 
-    <!-- 8. ช่องให้กดคอนแทคแจ้งสลิป -->
+    <!-- 8. ช่องให้กดคอนแทคแจ้งสลิป (โทนสีใหม่) -->
     <a href="https://lin.ee/83ITyuY" target="_blank" class="contact-link-card">
       <div class="contact-text-wrap">
-        <div class="contact-main-txt">โอนแล้วแจ้งสลิป<br>ที่ไลน์ @463ouint เท่านั้น</div>
+        <div class="contact-main-txt">โอนแล้วแจ้งสลิปที่ไลน์ @463ouint เท่านั้น ♡</div>
         <div class="contact-sub-txt">แตะที่นี่เพื่อเปิดแอป LINE ได้ทันที 💬</div>
       </div>
       <div class="contact-arrow-badge">➔</div>
     </a>
 
-    <!-- 9. Payment QR Code ตามยอดเงิน แยก 2 บัญชี -->
+    <!-- 9. Payment QR Code ตามยอดเงิน แยก 2 บัญชี (โทนสีใหม่) -->
     <div class="qr-card">
-      <div class="qr-main-title">💳 สร้าง Payment QR Code</div>
+      <div class="qr-main-title">💳 สร้าง Payment QR Code ♡</div>
 
       <!-- แท็บเลือกบัญชี QR -->
       <div class="qr-tab-nav">
@@ -720,7 +728,7 @@
       }, { once: true });
     });
 
-    // 2. ฟังก์ชันคัดลอกเฉพาะเลข
+    // 2. ฟังก์ชันคัดลอกเฉพาะตัวเลข
     function copyText(text, msg) {
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text);
@@ -744,7 +752,7 @@
       }, 2000);
     }
 
-    // 3. กำหนดข้อมูล QR Code ทั้ง 2 บัญชี
+    // 3. ข้อมูล QR Code ทั้ง 2 บัญชี
     const qrDataMap = {
       preeyaporn: {
         title: "qr preeyaporn ♡",
