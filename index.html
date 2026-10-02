@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- ป้องกัน iPhone / Safari แปลงเลขบัญชีเป็นเบอร์โทรสีน้ำเงิน -->
+  <!-- ป้องกัน Safari แปลงตัวเลขเป็นลิงก์โทรศัพท์สีน้ำเงิน -->
   <meta name="format-detection" content="telephone=no">
   <title>Payment homey ♡</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,6 @@
 
   <style>
     :root {
-      /* โทนสี Homey House Pastel */
       --homey-pink: #ffb8d2;
       --homey-soft-pink: #fff0f5;
       --homey-deep-pink: #f26a8d;
@@ -188,7 +187,7 @@
       color: var(--homey-deep-pink);
     }
 
-    /* ล็อกสีเลขบัญชีเป็นโทนน้ำตาลคาเฟ่ ไม่ให้ติดลิงก์สีน้ำเงิน */
+    /* ล็อกสีเลขบัญชีเป็นสีน้ำตาลคาเฟ่ */
     .acc-num-txt,
     .acc-num-txt a {
       font-size: 16px !important;
@@ -196,7 +195,7 @@
       color: var(--text-brown) !important;
       letter-spacing: 0.5px !important;
       text-decoration: none !important;
-      pointer-events: none; /* ป้องกันการกดโทรออก */
+      pointer-events: none;
     }
 
     .copy-btn {
@@ -536,12 +535,14 @@
 </head>
 <body>
 
-  <!-- เพลงพื้นหลัง (เพิ่ม preload เพื่อให้พร้อมเล่นทันที) -->
-  <audio id="bgMusic" loop preload="auto" playsinline src="https://files.catbox.moe/qhg9ub.mp3"></audio>
+  <!-- Audio Element -->
+  <audio id="bgMusic" loop preload="auto" playsinline>
+    <source src="https://files.catbox.moe/qhg9ub.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="wrapper">
 
-    <!-- 1. ส่วนหัว: แบนเนอร์ด้านบน + โปรไฟล์วงกลมตรงกลาง -->
+    <!-- 1. ส่วนหัว: แบนเนอร์ + โปรไฟล์ -->
     <div class="header-card">
       <div class="banner-container">
         <img src="https://i.ibb.co/7x7jDhHF/line-oa-chat-261003-010110.jpg" alt="Banner" class="banner-img">
@@ -611,13 +612,13 @@
       </div>
     </div>
 
-    <!-- 4. กล่องโพสต์ที่ 1: ♡ pay preeyaporn -->
+    <!-- 4. กล่องโพสต์ที่ 1 -->
     <div class="post-box-card">
       <div class="post-title-tag">♡ pay preeyaporn</div>
       <img src="https://i.ibb.co/W49vJrnK/line-oa-chat-261003-010404.jpg" alt="pay preeyaporn" class="post-full-image">
     </div>
 
-    <!-- 5. กล่องโพสต์ที่ 2: ♡ pay kamonwan -->
+    <!-- 5. กล่องโพสต์ที่ 2 -->
     <div class="post-box-card">
       <div class="post-title-tag">♡ pay kamonwan</div>
       <img src="https://i.ibb.co/cSp4mLwp/line-oa-chat-261003-010532.jpg" alt="pay kamonwan" class="post-full-image">
@@ -646,7 +647,7 @@
       <div class="contact-arrow-badge">➔</div>
     </a>
 
-    <!-- 9. Payment QR Code ตามยอดเงิน แยก 2 บัญชี -->
+    <!-- 9. Payment QR Code แยก 2 บัญชี -->
     <div class="qr-card">
       <div class="qr-main-title">💳 สร้าง Payment QR Code ♡</div>
 
@@ -687,35 +688,36 @@
       </div>
     </div>
 
-    <!-- ลิงก์กรอบมนล่างสุด -->
+    <!-- ท้ายเว็บ -->
     <div style="text-align: center;">
       <div class="footer-badge">🧁 Payment homey ♡</div>
     </div>
 
   </div>
 
-  <!-- Toast แจ้งเตือนเมื่อคัดลอก -->
+  <!-- Toast แจ้งเตือน -->
   <div class="toast" id="toastBox">คัดลอกเรียบร้อยแล้วค่ะ ♡</div>
 
   <script>
-    // 1. ควบคุมเพลง
+    // 1. ระบบเล่นเพลง (แก้ไขให้รองรับ Safari/Chrome บนมือถืออย่างถูกต้อง)
     const music = document.getElementById('bgMusic');
     const musicIcon = document.getElementById('musicIcon');
     const musicText = document.getElementById('musicText');
 
-    function playAudioSafe() {
-      music.play().then(() => {
-        musicIcon.textContent = "❚❚";
-        musicText.textContent = "pause music";
-      }).catch(() => {
-        musicIcon.textContent = "▶";
-        musicText.textContent = "play music !";
-      });
-    }
-
     function toggleMusic() {
       if (music.paused) {
-        playAudioSafe();
+        music.play().then(() => {
+          musicIcon.textContent = "❚❚";
+          musicText.textContent = "pause music";
+        }).catch((err) => {
+          console.log("Audio play error:", err);
+          // กรณีไฟล์เพิ่งโหลด ให้ retry ทันที
+          music.load();
+          music.play().then(() => {
+            musicIcon.textContent = "❚❚";
+            musicText.textContent = "pause music";
+          });
+        });
       } else {
         music.pause();
         musicIcon.textContent = "▶";
@@ -723,22 +725,21 @@
       }
     }
 
-    // ปลดล็อกระบบเสียงทันทีเมื่อเริ่มแตะหน้าจอ (รองรับ iOS Safari 100%)
-    function unlockAudio() {
+    // แตะครั้งแรกของหน้าจอจะช่วยปลดล็อกระบบเสียงของ iOS
+    function initAudioOnFirstTouch() {
       if (music.paused && musicText.textContent === "play music !") {
-        playAudioSafe();
+        music.play().then(() => {
+          musicIcon.textContent = "❚❚";
+          musicText.textContent = "pause music";
+        }).catch(() => {});
       }
-      document.removeEventListener('touchstart', unlockAudio);
-      document.removeEventListener('click', unlockAudio);
+      document.removeEventListener('touchstart', initAudioOnFirstTouch);
+      document.removeEventListener('click', initAudioOnFirstTouch);
     }
+    document.addEventListener('touchstart', initAudioOnFirstTouch, { once: true, passive: true });
+    document.addEventListener('click', initAudioOnFirstTouch, { once: true });
 
-    document.addEventListener('touchstart', unlockAudio, { passive: true });
-    document.addEventListener('click', unlockAudio, { passive: true });
-    window.addEventListener('load', () => {
-      playAudioSafe();
-    });
-
-    // 2. ฟังก์ชันคัดลอกเฉพาะตัวเลข
+    // 2. คัดลอกตัวเลข
     function copyText(text, msg) {
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text);
@@ -762,16 +763,16 @@
       }, 2000);
     }
 
-    // 3. ข้อมูล QR Code ทั้ง 2 บัญชี
+    // 3. กำหนดเบอร์พร้อมเพย์ที่ถูกต้องของทั้ง 2 บัญชี
     const qrDataMap = {
       preeyaporn: {
         title: "qr preeyaporn ♡",
-        phone: "0984853024",
+        phone: "0984853024",      // บัญชี 1 preeyaporn
         owner: "preeyaporn"
       },
       kamonwan: {
         title: "qr kamonwan ♡",
-        phone: "0984853024",
+        phone: "0630706349",      // บัญชี 2 kamonwan (แก้ไขเบอร์ถูกต้องแล้ว)
         owner: "kamonwan"
       }
     };
@@ -784,14 +785,16 @@
       document.getElementById('tabKamonwan').classList.toggle('active', accKey === 'kamonwan');
       
       const info = qrDataMap[accKey];
+      // แสดงเบอร์พร้อมเพย์ในข้อความอธิบายให้ตรงตามบัญชีที่เลือก
+      const formattedPhone = info.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
       document.getElementById('qrInfoNote').innerHTML = `
-        พร้อมเพย์: 098-485-3024 (${info.owner})<br>
+        พร้อมเพย์: ${formattedPhone} (${info.owner})<br>
         สแกนจ่ายผ่านแอปธนาคาร / วอลเล็ตได้ทันที
       `;
       updateQRCode();
     }
 
-    // 4. PromptPay QR Code (EMVCo Standard)
+    // 4. PromptPay QR Code Payload Generator (มาตรฐาน EMVCo)
     function crc16(data) {
       let crc = 0xFFFF;
       for (let i = 0; i < data.length; i++) {
